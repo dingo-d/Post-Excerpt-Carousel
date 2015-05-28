@@ -56,7 +56,6 @@ jQuery(document).ready(function ($) {
 
 		$carousel.on('click', '.carousel_next', function (e) {
 			e.preventDefault();
-			var $ul = $(this).parents('.post_excerpt_carousel').find('ul');
 			var $li = $ul.find('li');
 			var $a = $('.active');
 
@@ -75,7 +74,6 @@ jQuery(document).ready(function ($) {
 
 		$carousel.on('click', '.carousel_prev', function (e) {
 			e.preventDefault();
-			var $ul = $(this).parents('.post_excerpt_carousel').find('ul');
 			var $li = $ul.find('li');
 			var $a = $('.active');
 
