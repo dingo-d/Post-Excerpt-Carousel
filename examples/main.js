@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
 		$carousel.on('click', '.carousel_next', function (e) {
 			e.preventDefault();
 			var $li = $ul.find('li');
-			var $a = $('.active');
+			var $a = $('.active', $carousel);
 
 			if (!$a.next().hasClass('last')) {
 				$a.removeClass('active').next().addClass('active');
@@ -75,7 +75,7 @@ jQuery(document).ready(function ($) {
 		$carousel.on('click', '.carousel_prev', function (e) {
 			e.preventDefault();
 			var $li = $ul.find('li');
-			var $a = $('.active');
+			var $a = $('.active', $carousel);
 
 			if (!$a.prev().hasClass('first')) {
 				$a.removeClass('active').prev().addClass('active');
