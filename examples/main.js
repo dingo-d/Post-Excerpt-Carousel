@@ -36,8 +36,6 @@ jQuery(document).ready(function ($) {
 		var left_offset = list_width - (outer_width - container_width)/2;
 		var $prev = $carousel.find('.carousel_prev');
 		var $next = $carousel.find('.carousel_next');
-		var items = $carousel.data('items');
-		var easing = $carousel.data('easing');
 		var duration = $carousel.data('duration');
 		var li_number = $carousel.find('li').length;
 		var $ul = $carousel.find('ul');
@@ -46,7 +44,7 @@ jQuery(document).ready(function ($) {
 
 		if (outer_width < 760){
 			$li.eq(1).addClass('active');
-		} else if (outer_width > 980){
+		} else if (outer_width > 760){
 			$li.eq(1).addClass('active');
 			$li.eq(2).addClass('active');
 		}
@@ -59,15 +57,13 @@ jQuery(document).ready(function ($) {
 			var $li = $ul.find('li');
 			var $a = $('.active', $carousel);
 
-			if (!$a.next().hasClass('last')) {
+			if (!$a.next().hasClass('last') && !$ul.is(':animated')) {
 				$a.removeClass('active').next().addClass('active');
 			}
 
-			if (parseInt($ul.css('left'), 10) != -parseInt($not_active_width + left_offset, 10)) {
+			if (parseInt($ul.css('left'), 10) != -parseInt($not_active_width + left_offset, 10) && !$ul.is(':animated')) {
 				$ul.animate({
 					left: parseInt($ul.css('left'), 10) - $ul.find('li').outerWidth(true),
-					easing: easing,
-					step: items,
 				}, duration);
 			}
 		});
@@ -77,15 +73,13 @@ jQuery(document).ready(function ($) {
 			var $li = $ul.find('li');
 			var $a = $('.active', $carousel);
 
-			if (!$a.prev().hasClass('first')) {
+			if (!$a.prev().hasClass('first') && !$ul.is(':animated')) {
 				$a.removeClass('active').prev().addClass('active');
 			}
 
-			if (parseInt($ul.css('left'), 10) !== -parseInt(left_offset, 10)) {
+			if (parseInt($ul.css('left'), 10) !== -parseInt(left_offset, 10) && !$ul.is(':animated')) {
 				$ul.animate({
 					left: parseInt($ul.css('left'), 10) + $ul.find('li').outerWidth(true),
-					easing: easing,
-					step: items,
 				}, duration);
 			}
 		});
