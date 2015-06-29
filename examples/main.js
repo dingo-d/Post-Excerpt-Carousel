@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
 	});
 
 	$(window).on('resize', function(){
-		$('.tcvpb_post_excerpt_carousel').each(function(){
+		$('.post_excerpt_carousel').each(function(){
 			var $this = $(this);
 			if ($(window).width()>760) {
 				$(this).find('li').css('width', '570px');
