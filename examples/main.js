@@ -1,26 +1,12 @@
 jQuery(document).ready(function ($) {
 	'use strict';
 
-	$(window).on('load', function () {
-		$('.post_excerpt_carousel').each(function(){
-			var $this = $(this);
-			post_excerpt_positioning($this);
-		});
-	});
+	var $carousel = $('.post_excerpt_carousel');
 
-	$(window).on('resize', function(){
-		$('.post_excerpt_carousel').each(function(){
-			var $this = $(this);
-			if ($(window).width()>760) {
-				$(this).find('li').css('width', '570px');
-			}
-			post_excerpt_positioning($this);
-		});
-	});
+	$carousel.each(function(){
 
-	function post_excerpt_positioning(e){
+		var $this = $(this);
 
-		var $carousel = e;
 		var outer_width = $(window).outerWidth();
 		var container_width;
 
@@ -36,11 +22,9 @@ jQuery(document).ready(function ($) {
 			container_width = parseInt((9/10)*outer_width,10);
 		}
 
-		var $prev = $carousel.find('.carousel_prev');
-		var $next = $carousel.find('.carousel_next');
-		var duration = $carousel.data('duration');
-		var li_number = $carousel.find('li').length;
-		var $ul = $carousel.find('ul');
+		var duration = $this.data('duration');
+		var li_number = $this.find('li').length;
+		var $ul = $this.find('ul');
 		var $li = $ul.find('li');
 
 		if (outer_width < 760){
@@ -54,51 +38,252 @@ jQuery(document).ready(function ($) {
 			$li.eq(2).addClass('active');
 		}
 
-		var list_width = $carousel.find('li').outerWidth(true);
+		var list_width = $this.find('li').outerWidth(true);
 		var left_offset;
-		if ($('.boxed_body_wrapper').length) {
-			left_offset = list_width-60;
-		} else{
-			left_offset = parseInt(list_width - (outer_width - container_width-42)/2, 10);
+
+		left_offset = parseInt(list_width - (outer_width - container_width-42)/2, 10);
+
+		$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
+
+
+		var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+		var not_active_width = not_active_no * $this.find('li').outerWidth(true);
+
+		$this.on('click', '.carousel_next', function (e) {
+			e.preventDefault();
+
+			if($this.find('li.last').prev().hasClass('active')){
+				return;
+			} else {
+				var $a = $('.active', $this);
+
+				if (!$a.next().hasClass('last') && !$ul.is(':animated')) {
+					$a.removeClass('active').next().addClass('active');
+				}
+
+				if (!$ul.is(':animated')) {
+					$ul.animate({
+						left: parseInt($ul.css('left'), 10) - $ul.find('li').outerWidth(true),
+					}, duration);
+				}
+			}
+
+		});
+
+		$this.on('click', '.carousel_prev', function (e) {
+			e.preventDefault();
+
+			if($this.find('li.first').next().hasClass('active')){
+				return;
+			} else {
+				var $a = $('.active', $this);
+
+				if (!$a.prev().hasClass('first') && !$ul.is(':animated')) {
+					$a.removeClass('active').prev().addClass('active');
+				}
+
+				if (!$ul.is(':animated')) {
+					$ul.animate({
+						left: parseInt($ul.css('left'), 10) + $ul.find('li').outerWidth(true),
+					}, duration);
+				}
+			}
+
+		});
+
+	});
+
+	// Desktop on resize
+
+	$(window).on('resize', function(){
+		if($(window).width()>1024){
+			$carousel.each(function(){
+
+				var $this = $(this);
+
+				var outer_width = $(window).outerWidth();
+				var container_width;
+
+				if (outer_width > 1190) {
+					container_width = 1170;
+				}
+
+				if (outer_width > 960 && outer_width < 1190) {
+					container_width = 960;
+				}
+
+				if (outer_width < 960) {
+					container_width = parseInt((9/10)*outer_width,10);
+				}
+
+				var duration = $this.data('duration');
+				var li_number = $this.find('li').length;
+				var $ul = $this.find('ul');
+				var $li = $ul.find('li');
+
+				if (outer_width < 760){
+					$li.css('width', container_width);
+					$li.eq(1).addClass('active');
+					if ($li.eq(2).hasClass('active')) {
+						$li.eq(2).removeClass('active');
+					}
+				} else if (outer_width > 760){
+					$li.eq(1).addClass('active');
+					$li.eq(2).addClass('active');
+				}
+
+				var list_width = $this.find('li').outerWidth(true);
+				var left_offset;
+
+				left_offset = parseInt(list_width - (outer_width - container_width-42)/2, 10);
+
+				$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
+
+
+				var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+				var not_active_width = not_active_no * $this.find('li').outerWidth(true);
+
+				$this.on('click', '.carousel_next', function (e) {
+					e.preventDefault();
+
+					if($this.find('li.last').prev().hasClass('active')){
+						return;
+					} else {
+						var $a = $('.active', $this);
+
+						if (!$a.next().hasClass('last') && !$ul.is(':animated')) {
+							$a.removeClass('active').next().addClass('active');
+						}
+
+						if (!$ul.is(':animated')) {
+							$ul.animate({
+								left: parseInt($ul.css('left'), 10) - $ul.find('li').outerWidth(true),
+							}, duration);
+						}
+					}
+
+				});
+
+				$this.on('click', '.carousel_prev', function (e) {
+					e.preventDefault();
+
+					if($this.find('li.first').next().hasClass('active')){
+						return;
+					} else {
+						var $a = $('.active', $this);
+
+						if (!$a.prev().hasClass('first') && !$ul.is(':animated')) {
+							$a.removeClass('active').prev().addClass('active');
+						}
+
+						if (!$ul.is(':animated')) {
+							$ul.animate({
+								left: parseInt($ul.css('left'), 10) + $ul.find('li').outerWidth(true),
+							}, duration);
+						}
+					}
+
+				});
+
+			});
 		}
+	});
 
-		$ul.css({'display': 'inline-block', 'width': li_number * $carousel.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
+
+	// Mobile orientationchange
 
 
-		var not_active_no = $carousel.find('li').not('.first').not('.last').not('.active').length;
-		var not_active_width = not_active_no * $carousel.find('li').outerWidth(true);
+	$(window).on('orientationchange', function(){
+		$carousel.each(function(){
 
-		$carousel.on('click', '.carousel_next', function (e) {
-			e.preventDefault();
+			var $this = $(this);
+
+			var outer_width = $(window).outerWidth();
+			var container_width;
+
+			if (outer_width > 1190) {
+				container_width = 1170;
+			}
+
+			if (outer_width > 960 && outer_width < 1190) {
+				container_width = 960;
+			}
+
+			if (outer_width < 960) {
+				container_width = parseInt((9/10)*outer_width,10);
+			}
+
+			var duration = $this.data('duration');
+			var li_number = $this.find('li').length;
+			var $ul = $this.find('ul');
 			var $li = $ul.find('li');
-			var $a = $('.active', $carousel);
 
-			if (!$a.next().hasClass('last') && !$ul.is(':animated')) {
-				$a.removeClass('active').next().addClass('active');
+			if (outer_width < 760){
+				$li.css('width', container_width);
+				$li.eq(1).addClass('active');
+				if ($li.eq(2).hasClass('active')) {
+					$li.eq(2).removeClass('active');
+				}
+			} else if (outer_width > 760){
+				$li.eq(1).addClass('active');
+				$li.eq(2).addClass('active');
 			}
 
-			if (parseInt($ul.css('left'), 10) != -parseInt(not_active_width + left_offset, 10) && !$ul.is(':animated')) {
-				$ul.animate({
-					left: parseInt($ul.css('left'), 10) - $ul.find('li').outerWidth(true),
-				}, duration);
-			}
+			var list_width = $this.find('li').outerWidth(true);
+			var left_offset;
+
+			left_offset = parseInt(list_width - (outer_width - container_width-42)/2, 10);
+
+			$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
+
+
+			var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+			var not_active_width = not_active_no * $this.find('li').outerWidth(true);
+
+			$this.on('click', '.carousel_next', function (e) {
+				e.preventDefault();
+
+				if($this.find('li.last').prev().hasClass('active')){
+					return;
+				} else {
+					var $a = $('.active', $this);
+
+					if (!$a.next().hasClass('last') && !$ul.is(':animated')) {
+						$a.removeClass('active').next().addClass('active');
+					}
+
+					if (!$ul.is(':animated')) {
+						$ul.animate({
+							left: parseInt($ul.css('left'), 10) - $ul.find('li').outerWidth(true),
+						}, duration);
+					}
+				}
+
+			});
+
+			$this.on('click', '.carousel_prev', function (e) {
+				e.preventDefault();
+
+				if($this.find('li.first').next().hasClass('active')){
+					return;
+				} else {
+					var $a = $('.active', $this);
+
+					if (!$a.prev().hasClass('first') && !$ul.is(':animated')) {
+						$a.removeClass('active').prev().addClass('active');
+					}
+
+					if (!$ul.is(':animated')) {
+						$ul.animate({
+							left: parseInt($ul.css('left'), 10) + $ul.find('li').outerWidth(true),
+						}, duration);
+					}
+				}
+
+			});
+
 		});
+	});
 
-		$carousel.on('click', '.carousel_prev', function (e) {
-			e.preventDefault();
-			var $li = $ul.find('li');
-			var $a = $('.active', $carousel);
-
-			if (!$a.prev().hasClass('first') && !$ul.is(':animated')) {
-				$a.removeClass('active').prev().addClass('active');
-			}
-
-			if (parseInt($ul.css('left'), 10) !== -parseInt(left_offset, 10) && !$ul.is(':animated')) {
-				$ul.animate({
-					left: parseInt($ul.css('left'), 10) + $ul.find('li').outerWidth(true),
-				}, duration);
-			}
-		});
-	}
 
 });
