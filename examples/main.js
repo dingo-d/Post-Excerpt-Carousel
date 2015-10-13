@@ -12,13 +12,9 @@ jQuery(document).ready(function ($) {
 
 		if (outer_width > 1190) {
 			container_width = 1170;
-		}
-
-		if (outer_width > 960 && outer_width < 1190) {
+		} else if (outer_width > 960) {
 			container_width = 960;
-		}
-
-		if (outer_width < 960) {
+		} else {
 			container_width = parseInt((9/10)*outer_width,10);
 		}
 
@@ -27,13 +23,13 @@ jQuery(document).ready(function ($) {
 		var $ul = $this.find('ul');
 		var $li = $ul.find('li');
 
-		if (outer_width < 760){
+		if (outer_width < 760) {
 			$li.css('width', container_width);
 			$li.eq(1).addClass('active');
 			if ($li.eq(2).hasClass('active')) {
 				$li.eq(2).removeClass('active');
 			}
-		} else if (outer_width > 760){
+		} else {
 			$li.eq(1).addClass('active');
 			$li.eq(2).addClass('active');
 		}
@@ -45,14 +41,13 @@ jQuery(document).ready(function ($) {
 
 		$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
-
-		var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+		var not_active_no = $this.find('li:not(.first, .last, .active)').length;
 		var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 		$this.on('click', '.carousel_next', function (e) {
 			e.preventDefault();
 
-			if($this.find('li.last').prev().hasClass('active')){
+			if ($this.find('li.last').prev().hasClass('active')) {
 				return;
 			} else {
 				var $a = $('.active', $this);
@@ -73,7 +68,7 @@ jQuery(document).ready(function ($) {
 		$this.on('click', '.carousel_prev', function (e) {
 			e.preventDefault();
 
-			if($this.find('li.first').next().hasClass('active')){
+			if($this.find('li.first').next().hasClass('active')) {
 				return;
 			} else {
 				var $a = $('.active', $this);
@@ -106,13 +101,9 @@ jQuery(document).ready(function ($) {
 
 				if (outer_width > 1190) {
 					container_width = 1170;
-				}
-
-				if (outer_width > 960 && outer_width < 1190) {
+				} else if (outer_width > 960) {
 					container_width = 960;
-				}
-
-				if (outer_width < 960) {
+				} else {
 					container_width = parseInt((9/10)*outer_width,10);
 				}
 
@@ -127,7 +118,7 @@ jQuery(document).ready(function ($) {
 					if ($li.eq(2).hasClass('active')) {
 						$li.eq(2).removeClass('active');
 					}
-				} else if (outer_width > 760){
+				} else {
 					$li.eq(1).addClass('active');
 					$li.eq(2).addClass('active');
 				}
@@ -139,14 +130,13 @@ jQuery(document).ready(function ($) {
 
 				$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
-
-				var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+				var not_active_no = $this.find('li:not(.first, .last, .active)').length;
 				var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 				$this.on('click', '.carousel_next', function (e) {
 					e.preventDefault();
 
-					if($this.find('li.last').prev().hasClass('active')){
+					if ($this.find('li.last').prev().hasClass('active')) {
 						return;
 					} else {
 						var $a = $('.active', $this);
@@ -167,7 +157,7 @@ jQuery(document).ready(function ($) {
 				$this.on('click', '.carousel_prev', function (e) {
 					e.preventDefault();
 
-					if($this.find('li.first').next().hasClass('active')){
+					if ($this.find('li.first').next().hasClass('active')) {
 						return;
 					} else {
 						var $a = $('.active', $this);
@@ -203,13 +193,9 @@ jQuery(document).ready(function ($) {
 
 			if (outer_width > 1190) {
 				container_width = 1170;
-			}
-
-			if (outer_width > 960 && outer_width < 1190) {
+			} else if (outer_width > 960) {
 				container_width = 960;
-			}
-
-			if (outer_width < 960) {
+			} else {
 				container_width = parseInt((9/10)*outer_width,10);
 			}
 
@@ -224,7 +210,7 @@ jQuery(document).ready(function ($) {
 				if ($li.eq(2).hasClass('active')) {
 					$li.eq(2).removeClass('active');
 				}
-			} else if (outer_width > 760){
+			} else {
 				$li.eq(1).addClass('active');
 				$li.eq(2).addClass('active');
 			}
@@ -237,13 +223,13 @@ jQuery(document).ready(function ($) {
 			$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
 
-			var not_active_no = $this.find('li').not('.first').not('.last').not('.active').length;
+			var not_active_no = $this.find('li:not(.first, .last, .active)').length;
 			var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 			$this.on('click', '.carousel_next', function (e) {
 				e.preventDefault();
 
-				if($this.find('li.last').prev().hasClass('active')){
+				if ($this.find('li.last').prev().hasClass('active')) {
 					return;
 				} else {
 					var $a = $('.active', $this);
@@ -264,7 +250,7 @@ jQuery(document).ready(function ($) {
 			$this.on('click', '.carousel_prev', function (e) {
 				e.preventDefault();
 
-				if($this.find('li.first').next().hasClass('active')){
+				if ($this.find('li.first').next().hasClass('active')) {
 					return;
 				} else {
 					var $a = $('.active', $this);
