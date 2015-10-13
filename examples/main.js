@@ -41,7 +41,7 @@ jQuery(document).ready(function ($) {
 
 		$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
-		var not_active_no = $this.find('li:not(.first, .last, .active)').length;
+		var not_active_no = $this.find('li').not('.first, .last, .active').length;
 		var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 		$this.on('click', '.carousel_next', function (e) {
@@ -130,7 +130,7 @@ jQuery(document).ready(function ($) {
 
 				$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
-				var not_active_no = $this.find('li:not(.first, .last, .active)').length;
+				var not_active_no = $this.find('li').not('.first, .last, .active').length;
 				var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 				$this.on('click', '.carousel_next', function (e) {
@@ -223,7 +223,7 @@ jQuery(document).ready(function ($) {
 			$ul.css({'display': 'inline-block', 'width': li_number * $this.find('li').outerWidth(true) + 'px', 'left': -left_offset + 'px'});
 
 
-			var not_active_no = $this.find('li:not(.first, .last, .active)').length;
+			var not_active_no = $this.find('li').not('.first, .last, .active').length;
 			var not_active_width = not_active_no * $this.find('li').outerWidth(true);
 
 			$this.on('click', '.carousel_next', function (e) {
